@@ -1,0 +1,310 @@
+/* Estilos del sitio de reserva de horas médicas */
+
+:root {
+  --color-primario: #0f6e8c;
+  --color-primario-oscuro: #0a4f66;
+  --color-fondo: #f5f8fa;
+  --color-superficie: #ffffff;
+  --color-texto: #1f2d3a;
+  --color-texto-suave: #5b6b78;
+  --color-borde: #d6e0e6;
+  --color-ok: #1e8e4e;
+  --color-error: #c0392b;
+  --radio: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: var(--color-texto);
+  background: var(--color-fondo);
+  line-height: 1.6;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Aviso superior */
+.aviso {
+  background: #fff4d6;
+  color: #6b5200;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+}
+
+/* Encabezado */
+.encabezado {
+  background: var(--color-superficie);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.encabezado__interior {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-primario-oscuro);
+  text-decoration: none;
+}
+
+.marca__icono {
+  display: inline-grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primario);
+  color: #ffffff;
+  font-size: 1.3rem;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  color: var(--color-texto);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.menu a:hover,
+.menu a:focus {
+  color: var(--color-primario);
+}
+
+/* Portada */
+.portada {
+  background: linear-gradient(135deg, var(--color-primario), var(--color-primario-oscuro));
+  color: #ffffff;
+  padding: 56px 0;
+}
+
+.portada h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+}
+
+.portada p {
+  margin: 0 0 22px;
+  opacity: 0.9;
+}
+
+.portada .boton {
+  background: #ffffff;
+  color: var(--color-primario-oscuro);
+}
+
+/* Secciones */
+.seccion {
+  padding: 48px 0;
+}
+
+.seccion--alterna {
+  background: var(--color-superficie);
+}
+
+.seccion h2 {
+  margin-top: 0;
+  color: var(--color-primario-oscuro);
+}
+
+.nota {
+  color: var(--color-texto-suave);
+  font-size: 0.95rem;
+}
+
+/* Botón */
+.boton {
+  display: inline-block;
+  border: none;
+  border-radius: var(--radio);
+  background: var(--color-primario);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 22px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.boton:hover,
+.boton:focus {
+  background: var(--color-primario-oscuro);
+}
+
+.portada .boton:hover,
+.portada .boton:focus {
+  background: #e6f2f6;
+}
+
+/* Formulario */
+.formulario {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 24px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo--completo {
+  grid-column: 1 / -1;
+}
+
+.campo label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.campo input,
+.campo select {
+  border: 1px solid var(--color-borde);
+  border-radius: 8px;
+  font: inherit;
+  padding: 10px 12px;
+}
+
+.campo input:focus,
+.campo select:focus {
+  outline: 2px solid var(--color-primario);
+  outline-offset: 1px;
+}
+
+.resultado {
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radio);
+}
+
+.resultado--ok {
+  background: #e3f5ea;
+  color: var(--color-ok);
+}
+
+.resultado--error {
+  background: #fbe7e5;
+  color: var(--color-error);
+}
+
+/* Tarjetas de atención */
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta {
+  background: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 20px;
+}
+
+.tarjeta h3 {
+  margin-top: 0;
+}
+
+.tarjeta p {
+  margin: 4px 0;
+}
+
+/* Estado del servicio */
+.estado {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  padding: 24px;
+}
+
+.estado__indicador {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+}
+
+.punto {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-texto-suave);
+}
+
+.punto--ok {
+  background: var(--color-ok);
+}
+
+.punto--error {
+  background: var(--color-error);
+}
+
+.estado__datos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 0;
+}
+
+.estado__datos dt {
+  color: var(--color-texto-suave);
+  font-size: 0.85rem;
+}
+
+.estado__datos dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Pie */
+.pie {
+  background: var(--color-primario-oscuro);
+  color: #d9eef5;
+  font-size: 0.9rem;
+  padding: 20px 0;
+  text-align: center;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 640px) {
+  .formulario {
+    grid-template-columns: 1fr;
+  }
+
+  .portada h1 {
+    font-size: 1.6rem;
+  }
+}
