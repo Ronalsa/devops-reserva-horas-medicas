@@ -1,0 +1,16 @@
+# Variables de entorno reales (pueden contener datos sensibles)
+.env
+.env.*
+!.env.example
+
+# Registros y archivos temporales
+*.log
+*.tmp
+
+# Archivos del sistema operativo
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Configuración local del editor
+.vscode/
