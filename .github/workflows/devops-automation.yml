@@ -1,0 +1,64 @@
+# Validación automática del proyecto con GitHub Actions
+# Se ejecuta en cada push y pull request hacia la rama main.
+# No publica el servicio en ningún servidor: solo construye, levanta y verifica el contenedor.
+
+name: DevOps automation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el repositorio
+        uses: actions/checkout@v4
+
+      - name: Verificar archivos obligatorios
+        run: |
+          for archivo in src/index.html src/styles.css Dockerfile docker-compose.yml .env.example .gitignore README.md; do
+            if [ ! -f "$archivo" ]; then
+              echo "Falta el archivo: $archivo"
+              exit 1
+            fi
+            echo "OK: $archivo"
+          done
+
+      - name: Verificar que no se haya subido un archivo .env
+        run: |
+          if [ -f ".env" ]; then
+            echo "Error: el archivo .env no debe versionarse"
+            exit 1
+          fi
+          echo "OK: no hay archivo .env en el repositorio"
+
+      - name: Validar la configuración de Docker Compose
+        run: docker compose config
+
+      - name: Construir y levantar el servicio
+        run: docker compose up -d --build
+
+      - name: Verificar que el servicio responda en el puerto 8080
+        run: |
+          for intento in $(seq 1 10); do
+            if curl -fsS http://localhost:8080 > /dev/null; then
+              echo "OK: el servicio responde en http://localhost:8080"
+              exit 0
+            fi
+            echo "Intento $intento: el servicio aún no responde"
+            sleep 3
+          done
+          echo "Error: el servicio no respondió"
+          docker compose logs
+          exit 1
+
+      - name: Mostrar estado del contenedor
+        run: docker compose ps
+
+      - name: Detener el servicio
+        if: always()
+        run: docker compose down
