@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Plataforma de reserva de horas médicas. Proyecto académico DevOps con datos ficticios.">
+  <title>Reserva de Horas Médicas | Centro de Salud Aurora</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="aviso" role="note">
+    Proyecto académico DevOps · Centro de salud ficticio · El formulario no envía ni almacena datos
+  </div>
+
+  <header class="encabezado">
+    <div class="contenedor encabezado__interior">
+      <a href="#inicio" class="marca">
+        <span class="marca__icono" aria-hidden="true">+</span>
+        Centro de Salud Aurora
+      </a>
+      <nav aria-label="Navegación principal">
+        <ul class="menu">
+          <li><a href="#reserva">Reservar hora</a></li>
+          <li><a href="#atencion">Atención</a></li>
+          <li><a href="#estado">Estado del servicio</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inicio">
+
+    <section class="portada">
+      <div class="contenedor">
+        <h1>Reserva tu hora médica en línea</h1>
+        <p>Elige la especialidad, la fecha y el bloque horario que más te acomode.</p>
+        <a href="#reserva" class="boton">Reservar ahora</a>
+      </div>
+    </section>
+
+    <!-- Sección 1: formulario de reserva -->
+    <section id="reserva" class="seccion">
+      <div class="contenedor">
+        <h2>Formulario de reserva</h2>
+        <p class="nota">
+          Formulario de demostración: los datos no se envían a ningún servidor ni se guardan.
+          No ingreses información personal real.
+        </p>
+
+        <form id="form-reserva" class="formulario" novalidate>
+          <div class="campo">
+            <label for="especialidad">Especialidad</label>
+            <select id="especialidad" name="especialidad" required>
+              <option value="">Selecciona una especialidad</option>
+              <option>Medicina general</option>
+              <option>Pediatría</option>
+              <option>Ginecología</option>
+              <option>Odontología</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="fecha">Fecha</label>
+            <input type="date" id="fecha" name="fecha" required>
+          </div>
+
+          <div class="campo">
+            <label for="bloque">Bloque horario</label>
+            <select id="bloque" name="bloque" required>
+              <option value="">Selecciona un bloque</option>
+              <option>Mañana (08:00 a 13:00)</option>
+              <option>Tarde (14:00 a 20:00)</option>
+            </select>
+          </div>
+
+          <div class="campo">
+            <label for="nombre">Nombre del paciente</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Paciente de prueba" autocomplete="off" required>
+          </div>
+
+          <div class="campo campo--completo">
+            <label for="correo">Correo de contacto</label>
+            <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.cl" autocomplete="off" required>
+          </div>
+
+          <div class="campo campo--completo">
+            <button type="submit" class="boton">Confirmar reserva</button>
+          </div>
+        </form>
+
+        <p id="resultado" class="resultado" role="status" aria-live="polite" hidden></p>
+      </div>
+    </section>
+
+    <!-- Sección 2: información de atención -->
+    <section id="atencion" class="seccion seccion--alterna">
+      <div class="contenedor">
+        <h2>Información de atención</h2>
+        <div class="tarjetas">
+          <article class="tarjeta">
+            <h3>Horario</h3>
+            <p>Lunes a viernes: 08:00 a 20:00</p>
+            <p>Sábado: 09:00 a 14:00</p>
+          </article>
+          <article class="tarjeta">
+            <h3>Especialidades</h3>
+            <p>Medicina general, pediatría, ginecología y odontología.</p>
+          </article>
+          <article class="tarjeta">
+            <h3>Recomendaciones</h3>
+            <p>Llega 15 minutos antes de tu hora y presenta tu documento de identidad en recepción.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección 3: estado del servicio -->
+    <section id="estado" class="seccion">
+      <div class="contenedor">
+        <h2>Estado del servicio</h2>
+        <div class="estado">
+          <p class="estado__indicador">
+            <span id="estado-punto" class="punto" aria-hidden="true"></span>
+            <strong id="estado-texto">Verificando...</strong>
+          </p>
+          <dl class="estado__datos">
+            <div><dt>Última verificación</dt><dd id="estado-hora">-</dd></div>
+            <div><dt>Tiempo de respuesta</dt><dd id="estado-tiempo">-</dd></div>
+            <div><dt>Versión</dt><dd>1.0.0</dd></div>
+            <div><dt>Servidor</dt><dd>Nginx en contenedor Docker</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <p>Centro de Salud Aurora es una institución ficticia creada con fines académicos (asignatura DevOps, IACC).</p>
+    </div>
+  </footer>
+
+  <script>
+    // Formulario de demostración: no envía ni almacena datos.
+    const formulario = document.getElementById('form-reserva');
+    const resultado = document.getElementById('resultado');
+
+    formulario.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+      if (!formulario.checkValidity()) {
+        resultado.textContent = 'Completa todos los campos para confirmar la reserva.';
+        resultado.className = 'resultado resultado--error';
+        resultado.hidden = false;
+        return;
+      }
+      const especialidad = document.getElementById('especialidad').value;
+      const fecha = document.getElementById('fecha').value;
+      const bloque = document.getElementById('bloque').value;
+      resultado.textContent = 'Reserva simulada: ' + especialidad + ', ' + fecha + ', ' + bloque +
+        '. Por tratarse de una demostración, la reserva no se guardó.';
+      resultado.className = 'resultado resultado--ok';
+      resultado.hidden = false;
+      formulario.reset();
+    });
+
+    // Estado del servicio: consulta al mismo servidor y mide el tiempo de respuesta.
+    async function verificarEstado() {
+      const punto = document.getElementById('estado-punto');
+      const texto = document.getElementById('estado-texto');
+      const inicio = performance.now();
+      try {
+        const respuesta = await fetch(window.location.pathname, { method: 'HEAD', cache: 'no-store' });
+        const milisegundos = Math.round(performance.now() - inicio);
+        if (respuesta.ok) {
+          punto.className = 'punto punto--ok';
+          texto.textContent = 'Servicio operativo';
+        } else {
+          punto.className = 'punto punto--error';
+          texto.textContent = 'Servicio con problemas (código ' + respuesta.status + ')';
+        }
+        document.getElementById('estado-tiempo').textContent = milisegundos + ' ms';
+      } catch (error) {
+        punto.className = 'punto punto--error';
+        texto.textContent = 'Servicio sin respuesta';
+        document.getElementById('estado-tiempo').textContent = '-';
+      }
+      document.getElementById('estado-hora').textContent = new Date().toLocaleTimeString('es-CL');
+    }
+
+    verificarEstado();
+    setInterval(verificarEstado, 30000);
+  </script>
+</body>
+</html>
